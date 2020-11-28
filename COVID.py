@@ -48,9 +48,10 @@ def all_country_graphs(dpi_fig, y_value, y_label, title):
 
 # Create individual country graphs
 def indi_country_graphs(dpi_fig, country, y_val_bar, y_val_line, y_label, title):
-    ax = data[data['location'] == country].tail(100).plot.bar(x='date', y=y_val_bar, color='blue', label='Daily Cases')
+    ax = data[data['location'] == country].tail(100).plot.bar(x='date', y=y_val_bar, color='blue',
+                                                              label='7-Day Moving Average')
     data[data['location'] == country].tail(100).plot(kind='line', x='date', y=y_val_line, ax=ax, color='red',
-                                                     linewidth=2, label='7-Day Moving Average')
+                                                     linewidth=2, label='Daily Cases')
     plt.gcf().set_size_inches(11, 5)
     plt.title(title, fontdict={'fontsize': 15, 'fontweight': 'bold'})
     plt.xlabel('')
