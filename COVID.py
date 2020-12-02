@@ -23,11 +23,13 @@ data = all_data.loc[all_data['location'].isin(COUNTRIES_INTEREST), columns_inter
 data.set_index(['location', 'date']).sort_index()
 data.to_csv('{}/covid.csv'.format(DATA_DIR), index=False)
 
+time_stamp = time.strftime('%Y-%m-%d', time.gmtime())
+
 class PDF(FPDF):
     def footer(self):
         self.set_y(-15)
         self.set_font('Arial', 'I', 7)
-        self.cell(0, 10, 'Retrieved on: {}'.format(time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())), 0, 0, 'L')
+        self.cell(0, 10, 'Retrieved on: {}'.format(time_stamp), 0, 0, 'L')
         self.cell(0, 10, 'Page {}'.format(str(self.page_no())), 0, 0, 'R')
 
 # Create all country graphs
@@ -119,7 +121,7 @@ pdf.alias_nb_pages()
 # First page
 pdf.add_page()
 pdf.set_font('Arial', 'B', 26)
-pdf.cell(0, 5, 'COVID-19 Report as of {}'.format(time.strftime('%Y-%m-%d', time.gmtime())), 0, 0, 'C')
+pdf.cell(0, 5, 'COVID-19 Report as of {}'.format(time_stamp), 0, 0, 'C')
 pdf.set_font('Arial', 'B', 20)
 pdf.set_y(20)
 pdf.cell(0, 5, 'Prepared by {}'.format(NAME), 0, 0, 'C')
@@ -132,7 +134,7 @@ pdf.multi_cell(190, 7, 'The COVID-19 (SARS-CoV-2) pandemic has lead to significa
                        'of COVID-19. This report illustrates COVID-19 statistics in countries of interest. The first '
                        'page contains total statistics over time for countries of interest. The second page contains '
                        'rates over time for countries of interest. The following pages contains individual country '
-                       'statistics. COVID-19 statistics are retrieved from Our World in Data GitHub page'
+                       'statistics. COVID-19 statistics are retrieved from Our World in Data GitHub page '
                        '(https://github.com/owid/covid-19-data).', 0)
 
 pdf.set_y(98)
@@ -171,4 +173,4 @@ pdf.set_y(20)
 pdf.multi_cell(190, 7, ', '.join(map(str, countries_all)), 0)
 
 # Save report
-pdf.output('{}/COVID-19 Report {}.pdf'.format(DATA_DIR, time.strftime('%Y-%m-%d', time.gmtime())), 'F')
+pdf.output('{}/COVID-19 Report {}.pdf'.format(DATA_DIR, time_stamp), 'F')
