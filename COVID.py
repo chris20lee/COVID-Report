@@ -49,11 +49,11 @@ def all_country_graphs(dpi_fig, y_value, y_label, title):
     plt.close()
 
 # Create individual country graphs
-def indi_country_graphs(dpi_fig, country, y_val_bar, y_val_line, y_label, title):
+def indi_country_graphs(dpi_fig, country, y_val_bar, y_val_line, y_label, legend, title):
     ax = data[data['location'] == country].tail(100).plot.bar(x='date', y=y_val_bar, color='blue',
                                                               label='7-Day Moving Average')
     data[data['location'] == country].tail(100).plot(kind='line', x='date', y=y_val_line, ax=ax, color='red',
-                                                     linewidth=2, label='Daily Cases')
+                                                     linewidth=2, label=legend)
     plt.gcf().set_size_inches(11, 5)
     plt.title(title, fontdict={'fontsize': 15, 'fontweight': 'bold'})
     plt.xlabel('')
@@ -109,8 +109,10 @@ all_country_graphs(FIG_DPI, 'total_deaths_per_million', 'Total COVID Deaths Per 
 
 # Call to create individual country graphs
 for i in COUNTRIES_INTEREST:
-    indi_country_graphs(FIG_DPI, i, 'new_cases', 'new_cases_smoothed', 'Daily COVID Cases', 'Daily New Cases')
-    indi_country_graphs(FIG_DPI, i, 'new_deaths', 'new_deaths_smoothed', 'Daily COVID Deaths', 'Daily New Deaths')
+    indi_country_graphs(FIG_DPI, i, 'new_cases', 'new_cases_smoothed', 'Daily COVID Cases', 'Daily Cases',
+                        'Daily New Cases')
+    indi_country_graphs(FIG_DPI, i, 'new_deaths', 'new_deaths_smoothed', 'Daily COVID Deaths', 'Daily Deaths',
+                        'Daily New Deaths')
     indi_country_rate(FIG_DPI, i, 'positive_rate', 'Percentage', 'Test Positivity Rate')
     indi_country_table(FIG_DPI, i, 'Daily Change')
 
