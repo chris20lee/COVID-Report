@@ -98,7 +98,6 @@ def indi_country_table(dpi_fig, country, title):
 
 # Call to create all country graphs
 all_country_graphs(FIG_DPI, 'total_cases', 'Total COVID Cases', 'Total Cases by Country')
-all_country_graphs(FIG_DPI, 'total_tests', 'Total COVID Tests', 'Total Tests by Country')
 all_country_graphs(FIG_DPI, 'total_deaths', 'Total COVID Deaths', 'Total Deaths by Country')
 all_country_graphs(FIG_DPI, 'total_cases_per_million', 'Total COVID Cases Per Million',
                    'Total Cases Per Million by Country')
